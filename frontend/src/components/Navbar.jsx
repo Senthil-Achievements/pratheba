@@ -70,7 +70,6 @@ const Navbar = () => {
     { label: 'HOW IT WORKS',  target: 'how-it-works'  },
     { label: 'FEATURES',      target: 'features'      },
     { label: 'TIPS',          target: '/tips', isRoute: true },
-    { label: 'PRICING',       target: '/pricing', isRoute: true },
   ];
 
   const handleLogout = async () => {
@@ -92,7 +91,7 @@ const Navbar = () => {
           RESUMESCAN
         </div>
 
-        <div className="nav-center" style={{ display: 'flex', alignItems: 'center', gap: '36px' }}>
+        <div className="nav-center" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '36px' }}>
           {navLinks.map((link, i) => (
             <a 
               key={i} 
