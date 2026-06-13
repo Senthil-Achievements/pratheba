@@ -52,9 +52,6 @@ function App() {
   const progressRef = useRef(null);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.globalTimeline.timeScale(0);
-    }
     lenisRef.current = initLenis();
     return () => { lenisRef.current?.destroy(); };
   }, []);

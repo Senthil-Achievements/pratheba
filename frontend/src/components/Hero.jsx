@@ -7,76 +7,81 @@ import Antigravity from './Antigravity';
 const Hero = () => {
   const particleColor = '#af50ff';
   useEffect(() => {
-    // 1. Label badge
-    gsap.fromTo('.hero-label',
-      { opacity: 0, y: -20, scale: 0.9 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.4)', delay: 0.3 }
-    );
+    let ctx = gsap.context(() => {
+      // 1. Label badge
+      gsap.fromTo('.hero-label',
+        { opacity: 0, y: -20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.4)', delay: 0.3 }
+      );
 
-    // 2. Headline — SplitType on the wrapper
-    const split = new SplitType('.hero-headline', { types: 'chars' });
-    gsap.fromTo(split.chars,
-      { opacity: 0, y: 80, rotateX: -90 },
-      {
-        opacity: 1, y: 0, rotateX: 0,
-        duration: 0.7,
-        ease: 'power4.out',
-        stagger: { amount: 0.6 },
-        delay: 0.5,
-      }
-    );
+      // 2. Headline — SplitType on the wrapper
+      const split = new SplitType('.hero-headline', { types: 'chars' });
+      gsap.fromTo(split.chars,
+        { opacity: 0, y: 80, rotateX: -90 },
+        {
+          opacity: 1, y: 0, rotateX: 0,
+          duration: 0.7,
+          ease: 'power4.out',
+          stagger: { amount: 0.6 },
+          delay: 0.5,
+        }
+      );
 
-    // 3. Subheadline
-    gsap.fromTo('.hero-sub',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 1.0 }
-    );
+      // 3. Subheadline
+      gsap.fromTo('.hero-sub',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 1.0 }
+      );
 
-    // 4. CTA buttons stagger
-    gsap.fromTo('.hero-cta-btn',
-      { opacity: 0, y: 20, scale: 0.95 },
-      {
-        opacity: 1, y: 0, scale: 1,
-        duration: 0.6, ease: 'power3.out',
-        stagger: 0.12, delay: 1.2,
-      }
-    );
+      // 4. CTA buttons stagger
+      gsap.fromTo('.hero-cta-btn',
+        { opacity: 0, y: 20, scale: 0.95 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.6, ease: 'power3.out',
+          stagger: 0.12, delay: 1.2,
+        }
+      );
 
-    // 5. Scroll indicator
-    gsap.fromTo('.scroll-indicator',
-      { opacity: 0 },
-      { opacity: 1, duration: 0.8, delay: 1.6 }
-    );
-    gsap.to('.scroll-dot', {
-      y: 40, duration: 1.2, ease: 'power1.inOut', repeat: -1, yoyo: true,
+      // 5. Scroll indicator
+      gsap.fromTo('.scroll-indicator',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.8, delay: 1.6 }
+      );
+      gsap.to('.scroll-dot', {
+        y: 40, duration: 1.2, ease: 'power1.inOut', repeat: -1, yoyo: true,
+      });
+
+      // 6. Radial glow parallax on scroll
+      gsap.to('.hero-glow', {
+        y: -120,
+        scrollTrigger: {
+          trigger: '.hero-section',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      });
+
+      // 7. Hero content fades on exit
+      gsap.to('.hero-content', {
+        opacity: 0,
+        y: -60,
+        scrollTrigger: {
+          trigger: '.hero-section',
+          start: 'center top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+
+      // Cleanup split type when context is reverted
+      return () => {
+        split.revert();
+      };
     });
 
-    // 6. Radial glow parallax on scroll
-    gsap.to('.hero-glow', {
-      y: -120,
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.5,
-      },
-    });
-
-    // 7. Hero content fades on exit
-    gsap.to('.hero-content', {
-      opacity: 0,
-      y: -60,
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'center top',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
-
-    return () => {
-      split.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
