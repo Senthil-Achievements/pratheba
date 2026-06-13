@@ -142,7 +142,7 @@ Missing Keywords: ${kw.missing.slice(0, 10).join(', ')}
 OUTPUT FORMAT: Return ONLY valid JSON array. No markdown blocks, no other text.`;
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 18000); // 18s timeout
+    const timeout = setTimeout(() => controller.abort(), 9000);
 
     const res = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
       method: "POST",
@@ -151,7 +151,7 @@ OUTPUT FORMAT: Return ONLY valid JSON array. No markdown blocks, no other text.`
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "minimaxai/minimax-m3",
+        model: "meta/llama-3.1-8b-instruct",
         messages: [{ role: "user", content: prompt }],
         max_tokens: 1500,
         temperature: 0.3,
