@@ -1,4 +1,4 @@
-import pdfParse from 'pdf-parse';
+import pdfParse from 'pdf-parse-debugging-disabled';
 import mammoth from 'mammoth';
 
 const STOPWORDS = new Set([
