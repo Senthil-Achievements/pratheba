@@ -1,7 +1,5 @@
 import mammoth from 'mammoth';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const pdfParse = require('pdf-parse-debugging-disabled');
+import pdfParse from 'pdf-parse-debugging-disabled';
 
 const STOPWORDS = new Set([
   "the","a","an","and","or","but","in","on","at","to","for",
