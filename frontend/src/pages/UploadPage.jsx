@@ -10,7 +10,6 @@ const fieldStyle = { width: '100%', background: 'rgba(255,255,255,0.03)', border
 const onFocus = (e) => { e.target.style.borderColor = '#af50ff'; e.target.style.boxShadow = '0 0 0 3px rgba(175,80,255,0.12)'; };
 const onBlur = (e) => { e.target.style.borderColor = '#475467'; e.target.style.boxShadow = 'none'; };
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const UploadPage = () => {
   const navigate = useNavigate();
@@ -76,7 +75,7 @@ const UploadPage = () => {
 
       setProgress('Parsing resume content...');
 
-      const response = await fetch(`${API_URL}/api/analyze`, {
+      const response = await fetch('/api/analyze', {
         method: 'POST',
         body: formData,
         signal: controller.signal,
@@ -116,7 +115,7 @@ const UploadPage = () => {
       if (err.name === 'AbortError') {
         setError('Analysis took too long. The server may be busy. Please try again.');
       if (err.message.includes('Failed to fetch') || err.name === 'TypeError' || err.message.includes('NetworkError')) {
-        setError('Cannot connect to the analysis server. Make sure the backend is fully deployed and running.');
+        setError('Cannot connect to the analysis server. Please check your network connection and try again.');
       } else {
         setError(err.message || 'Something went wrong. Try again.');
       }
