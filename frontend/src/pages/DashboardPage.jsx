@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { gsap, ScrollTrigger } from '../lib/gsap';
+import html2pdf from 'html2pdf.js';
 
 const CIRC = 282.743;
 
@@ -56,6 +57,8 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const [d, setD] = useState(null);
   const [openSugg, setOpenSugg] = useState(0);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const reportRef = useRef(null);
 
   useEffect(() => {
     let raw = null;
@@ -126,7 +129,7 @@ const DashboardPage = () => {
 
   return (
     <main style={{ minHeight: '100vh', background: '#090909', paddingTop: '100px', paddingBottom: '160px' }}>
-      <div className="container">
+      <div className="container" ref={reportRef} style={{ padding: '20px' }}>
         <div className="results-grid" style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: '32px', alignItems: 'start' }}>
 
           {/* ═══════ LEFT — Resume Preview ═══════ */}
@@ -295,8 +298,40 @@ const DashboardPage = () => {
             </div>
 
             {/* ── Action buttons ── */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '8px' }}>
-              <button className="btn-pill btn-iris" style={{ minHeight: '52px', padding: '14px 28px' }}>Download PDF Report</button>
+            <div id="report-actions" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '8px' }}>
+              <button 
+                onClick={() => {
+                  setIsDownloading(true);
+                  const element = reportRef.current;
+                  const actionButtons = document.getElementById('report-actions');
+                  if (actionButtons) actionButtons.style.display = 'none';
+                  
+                  const leftSidebar = document.querySelector('.results-left');
+                  const oldMaxHeight = leftSidebar.style.maxHeight;
+                  leftSidebar.style.maxHeight = 'none';
+                  leftSidebar.style.overflow = 'visible';
+
+                  const opt = {
+                    margin:       10,
+                    filename:     `${name.replace(/\\s+/g, '_')}_ATS_Report.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#090909' },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                  };
+
+                  html2pdf().set(opt).from(element).save().then(() => {
+                    if (actionButtons) actionButtons.style.display = 'flex';
+                    leftSidebar.style.maxHeight = oldMaxHeight;
+                    leftSidebar.style.overflow = 'auto';
+                    setIsDownloading(false);
+                  });
+                }}
+                disabled={isDownloading}
+                className="btn-pill btn-iris" 
+                style={{ minHeight: '52px', padding: '14px 28px', opacity: isDownloading ? 0.7 : 1 }}
+              >
+                {isDownloading ? 'Generating...' : 'Download PDF Report'}
+              </button>
               <button onClick={() => { sessionStorage.removeItem('analysisResult'); navigate('/upload'); }} className="btn-pill btn-ghost" style={{ minHeight: '52px', padding: '14px 28px' }}>Re-analyze</button>
               <button onClick={() => navigate('/tips')} className="btn-pill btn-ghost" style={{ minHeight: '52px', padding: '14px 28px' }}>Improve My Resume</button>
             </div>
