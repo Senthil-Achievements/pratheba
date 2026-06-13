@@ -115,7 +115,9 @@ const UploadPage = () => {
 
       if (err.name === 'AbortError') {
         setError('Analysis took too long. The server may be busy. Please try again.');
-      } else if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+      if (err.message.includes('Failed to fetch') || err.name === 'TypeError') {
+        setError('The analysis service is waking up. Please wait 30 seconds and try again.');
+      } else if (err.message.includes('NetworkError')) {
         setError('Cannot connect to the analysis server. Make sure the backend is running on ' + API_URL);
       } else {
         setError(err.message || 'Something went wrong. Try again.');
