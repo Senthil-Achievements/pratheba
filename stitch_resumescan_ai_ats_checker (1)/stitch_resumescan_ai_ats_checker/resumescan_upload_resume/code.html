@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RESUMESCAN — DEPARTURE GATE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Playfair+Display:ital,wght@0,300;0,900;1,300;1,900&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#313030",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#d1bcff",
+                        "primary-fixed": "#f1daff",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "outline-variant": "#4d4354",
+                        "primary-fixed-dim": "#dfb7ff",
+                        "background": "#131313",
+                        "secondary-fixed": "#eaddff",
+                        "on-primary-container": "#41006f",
+                        "on-secondary-container": "#c4abff",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-bright": "#3a3939",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#353534",
+                        "tertiary-container": "#909191",
+                        "primary": "#dfb7ff",
+                        "on-tertiary-container": "#282a2a",
+                        "tertiary": "#c6c6c7",
+                        "on-primary": "#4b007e",
+                        "on-secondary-fixed": "#24005b",
+                        "surface-container": "#201f1f",
+                        "on-primary-fixed": "#2d004f",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "surface": "#131313",
+                        "secondary": "#d1bcff",
+                        "on-tertiary": "#2f3131",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#5425ac",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "on-secondary": "#3d0090",
+                        "surface-tint": "#dfb7ff",
+                        "on-surface-variant": "#d0c2d7",
+                        "secondary-container": "#5728af",
+                        "outline": "#998ca0",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "primary-container": "#ba6bff",
+                        "inverse-primary": "#891fd8",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed-variant": "#6b00b0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "max-width": "1280px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-xl-mobile": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "mono-label": ["JetBrains Mono"],
+                        "headline-xl": ["Playfair Display"],
+                        "body-sm": ["Inter"],
+                        "mono-code": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.009em", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.009em", "fontWeight": "600"}],
+                        "headline-xl-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                        "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "300"}],
+                        "mono-label": ["12px", {"lineHeight": "16px", "letterSpacing": "0.20em", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "300"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.009em", "fontWeight": "400"}],
+                        "mono-code": ["13px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #090909;
+            color: #e5e2e1;
+        }
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .upload-dashed {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='0' ry='0' stroke='%234D4354FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+        .scan-line {
+            height: 2px;
+            background: linear-gradient(90deg, #7f56d9 0%, #af50ff 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-white/10">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-max-width mx-auto">
+<div class="font-display-lg text-title-lg tracking-tighter text-on-surface font-black">RESUMESCAN</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">How it Works</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Tips</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Pricing</a>
+</div>
+<div class="flex gap-4 items-center">
+<button class="text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors">Log In</button>
+<button class="bg-primary text-on-primary font-bold px-6 py-2 rounded-full hover:scale-105 active:scale-95 transition-all">Analyze Now</button>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-grow pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto w-full relative">
+<!-- Background Animation Effect -->
+<div class="absolute -z-10 top-1/4 -right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute -z-10 bottom-0 -left-1/4 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[150px]"></div>
+<!-- Header Section -->
+<div class="mb-16">
+<span class="font-mono-label text-mono-label uppercase tracking-widest text-primary mb-4 block">DEPARTURE GATE</span>
+<h1 class="text-on-background">
+<span class="font-headline-xl text-headline-xl italic block md:inline">Your resume.</span>
+<span class="font-display-lg text-headline-xl font-bold block md:inline">Let's see if it flies.</span>
+</h1>
+</div>
+<!-- Form Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+<!-- Left: Resume Upload -->
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<label class="font-mono-label text-mono-label uppercase tracking-widest text-on-surface-variant">RESUME FILE</label>
+<span class="text-xs text-on-surface-variant/60 font-mono-label">PDF, DOCX (MAX 5MB)</span>
+</div>
+<div class="upload-dashed glass-card aspect-square md:aspect-video lg:aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 transition-all group relative overflow-hidden" id="dropzone">
+<div class="flex flex-col items-center text-center p-12 transition-transform duration-500 group-hover:-translate-y-2">
+<span class="material-symbols-outlined text-5xl text-outline mb-6 group-hover:text-primary transition-colors">upload_file</span>
+<p class="font-body-md text-on-surface-variant mb-2">Drag and drop your file here</p>
+<p class="font-body-sm text-outline-variant">or click to browse local storage</p>
+</div>
+<!-- Success State (Mocked) -->
+<div class="hidden absolute bottom-8 left-1/2 -translate-x-1/2 bg-surface-container-highest border border-primary/20 px-4 py-2 rounded-full flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4" id="success-chip">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-mono-code text-primary text-mono-code">resume_john_doe.pdf</span>
+<button class="hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+</div>
+<!-- Right: Job Description -->
+<div class="space-y-6">
+<div class="space-y-4">
+<label class="font-mono-label text-mono-label uppercase tracking-widest text-on-surface-variant">JOB DESCRIPTION</label>
+<div class="space-y-6">
+<div class="relative group">
+<input class="w-full bg-transparent border-b border-outline-variant py-4 px-0 font-body-md text-on-surface focus:outline-none focus:border-primary transition-colors placeholder:text-outline-variant/50" placeholder="Job Title (Optional)" type="text"/>
+<div class="absolute bottom-0 left-0 h-0.5 bg-primary w-0 group-focus-within:w-full transition-all duration-500"></div>
+</div>
+<div class="glass-card p-6 min-h-[360px] flex flex-col group transition-all focus-within:border-primary/50">
+<textarea class="flex-grow w-full bg-transparent border-none resize-none font-mono-code text-mono-code text-on-surface placeholder:text-outline-variant/40 focus:ring-0 p-0" id="job-desc" placeholder="Paste the full job description here to sync with ATS requirements..."></textarea>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-white/5">
+<span class="text-xs text-outline-variant font-mono-label">READY FOR MATCHING</span>
+<span class="text-xs text-outline-variant font-mono-label uppercase" id="char-count">0 / 5000 CHARS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="pt-8">
+<button class="w-full h-16 bg-[#af50ff] text-white font-title-lg text-title-lg rounded-full flex items-center justify-center gap-4 hover:shadow-[0_0_40px_-10px_rgba(175,80,255,0.4)] active:scale-[0.98] transition-all relative overflow-hidden group" id="analyze-btn">
+<span class="relative z-10">ANALYZE MY RESUME</span>
+<span class="material-symbols-outlined relative z-10 transition-transform group-hover:translate-x-2">arrow_forward</span>
+<!-- Glossy hover effect -->
+<div class="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700 skew-x-12"></div>
+</button>
+<p class="text-center mt-6 font-body-sm text-outline-variant">
+                        By proceeding, you agree to our <a class="underline hover:text-primary transition-colors" href="#">Data Privacy Protocol</a>.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full h-[36px] flex items-center bg-surface-container-lowest/90 backdrop-blur-md border-t border-white/5 z-50">
+<div class="flex justify-between items-center px-margin-desktop w-full max-w-max-width mx-auto">
+<span class="font-mono-label text-mono-label uppercase tracking-widest text-on-surface-variant">28.6139° N, 77.2090° E ♥</span>
+<div class="flex gap-8">
+<a class="font-mono-label text-mono-label uppercase tracking-widest text-tertiary hover:text-secondary transition-opacity opacity-80 hover:opacity-100" href="#">+ Analyze Direct — ATS Resume Checker</a>
+</div>
+<div class="hidden md:block">
+<span class="font-mono-label text-mono-label uppercase tracking-widest text-on-surface">V 2.0.4 — BETA</span>
+</div>
+</div>
+</footer>
+<script>
+        // Character count logic
+        const textarea = document.getElementById('job-desc');
+        const charCount = document.getElementById('char-count');
+        
+        textarea.addEventListener('input', (e) => {
+            const length = e.target.value.length;
+            charCount.textContent = `${length} / 5000 CHARS`;
+            if (length > 4500) {
+                charCount.classList.add('text-error');
+            } else {
+                charCount.classList.remove('text-error');
+            }
+        });
+
+        // Mock File Upload interaction
+        const dropzone = document.getElementById('dropzone');
+        const successChip = document.getElementById('success-chip');
+        const uploadContent = dropzone.querySelector('div:first-child');
+
+        dropzone.addEventListener('click', () => {
+            // Simulated upload success
+            uploadContent.classList.add('opacity-20');
+            successChip.classList.remove('hidden');
+            dropzone.style.borderColor = 'rgba(223, 183, 255, 0.4)';
+        });
+
+        // Simple button interaction
+        const analyzeBtn = document.getElementById('analyze-btn');
+        analyzeBtn.addEventListener('click', () => {
+            analyzeBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> INITIATING SCAN...';
+            setTimeout(() => {
+                analyzeBtn.innerHTML = '<span class="relative z-10">ANALYZE MY RESUME</span><span class="material-symbols-outlined relative z-10">arrow_forward</span>';
+            }, 2000);
+        });
+    </script>
+</body></html>
