@@ -187,25 +187,30 @@ const DashboardPage = () => {
           <section style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
 
             {/* ── Score Card ── */}
-            <div className="results-card" style={{ ...cardBase, display: 'grid', gridTemplateColumns: '160px 1fr', gap: '32px', alignItems: 'center' }}>
-              <div style={{ position: 'relative' }}>
-                {/* Badge */}
-                <div style={{ position: 'absolute', top: '-8px', left: '50%', transform: 'translateX(-50)', zIndex: 2, fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', letterSpacing: '0.15em', color: scoreBadgeColor, background: `${scoreBadgeColor}15`, border: `1px solid ${scoreBadgeColor}40`, borderRadius: '9999px', padding: '4px 14px', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
-                  {d.score >= 80 ? '◎ STRONG MATCH' : d.score >= 60 ? '◎ GOOD MATCH' : '◎ NEEDS WORK'}
-                </div>
+            <div className="results-card score-card" style={{ ...cardBase, display: 'grid', gridTemplateColumns: '160px 1fr', gap: '32px', alignItems: 'center' }}>
+              {/* LEFT — Ring only */}
+              <div className="score-ring-wrapper" style={{ position: 'relative', width: '160px', height: '160px', flexShrink: 0 }}>
                 <svg width="160" height="160" viewBox="0 0 100 100" style={{ transform: 'rotate(-90deg)', display: 'block' }}>
                   <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="7" />
                   <circle className="score-ring-progress" cx="50" cy="50" r="45" fill="none" stroke="url(#irisGrad)" strokeWidth="7" strokeLinecap="round" strokeDasharray={CIRC} strokeDashoffset={CIRC} />
                   <defs><linearGradient id="irisGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#af50ff" /><stop offset="100%" stopColor="#7f56d9" /></linearGradient></defs>
                 </svg>
-                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
                   <span className="score-number" data-score={d.score} style={{ fontFamily: "'Inter', sans-serif", fontSize: '42px', fontWeight: 700, color: '#f7f9fa' }}>0%</span>
                   <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '9px', letterSpacing: '0.20em', color: '#6b6b6b', marginTop: '2px' }}>SCORE</span>
                 </div>
               </div>
-              <div>
-                <h2 style={{ fontFamily: "'Inter', sans-serif", fontSize: '28px', fontWeight: 700, letterSpacing: '-0.02em', color: '#f7f9fa' }}>{d.scoreLabel}</h2>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 400, color: 'rgba(247,249,250,0.6)', lineHeight: 1.65, marginTop: '8px', maxWidth: '420px' }}>{d.scoreText}</p>
+
+              {/* RIGHT — Badge + title + description stacked vertically */}
+              <div className="score-info" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '12px', minWidth: 0 }}>
+                {/* Badge — sits cleanly above the title */}
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '5px 14px', borderRadius: '9999px', fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', letterSpacing: '0.15em', color: scoreBadgeColor, background: `${scoreBadgeColor}15`, border: `1px solid ${scoreBadgeColor}40`, whiteSpace: 'nowrap', textTransform: 'uppercase', lineHeight: 1 }}>
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: scoreBadgeColor, boxShadow: `0 0 8px ${scoreBadgeColor}`, flexShrink: 0 }} />
+                  {d.score >= 80 ? 'STRONG MATCH' : d.score >= 60 ? 'GOOD MATCH' : 'NEEDS WORK'}
+                </div>
+
+                <h2 style={{ fontFamily: "'Inter', sans-serif", fontSize: '28px', fontWeight: 700, letterSpacing: '-0.02em', color: '#f7f9fa', margin: 0 }}>{d.scoreLabel}</h2>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 400, color: 'rgba(247,249,250,0.6)', lineHeight: 1.65, maxWidth: '420px', margin: 0 }}>{d.scoreText}</p>
               </div>
             </div>
 
@@ -301,7 +306,10 @@ const DashboardPage = () => {
 
       <style>{`
         @media (max-width: 1024px) { .results-grid { grid-template-columns: 1fr !important; } .results-left { position: static !important; max-height: none !important; } }
-        @media (max-width: 600px) { .score-card .score-grid-inner { grid-template-columns: 1fr !important; text-align: center; } }
+        @media (max-width: 640px) {
+          .score-card { grid-template-columns: 1fr !important; justify-items: center; text-align: center; }
+          .score-info { align-items: center !important; }
+        }
         .results-left::-webkit-scrollbar { width: 4px; }
         .results-left::-webkit-scrollbar-thumb { background: rgba(175,80,255,0.4); border-radius: 2px; }
       `}</style>
