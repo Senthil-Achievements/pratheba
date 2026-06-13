@@ -311,11 +311,19 @@ const DashboardPage = () => {
                   leftSidebar.style.maxHeight = 'none';
                   leftSidebar.style.overflow = 'visible';
 
+                  // Force explicit black background and stacked layout for PDF
+                  const oldBg = element.style.background;
+                  element.style.background = '#090909';
+                  
+                  const grid = document.querySelector('.results-grid');
+                  const oldGrid = grid.style.gridTemplateColumns;
+                  grid.style.gridTemplateColumns = '1fr';
+
                   const opt = {
                     margin:       10,
                     filename:     `${name.replace(/\\s+/g, '_')}_ATS_Report.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#090909' },
+                    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#090909', windowWidth: 800 },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                   };
 
@@ -323,6 +331,8 @@ const DashboardPage = () => {
                     if (actionButtons) actionButtons.style.display = 'flex';
                     leftSidebar.style.maxHeight = oldMaxHeight;
                     leftSidebar.style.overflow = 'auto';
+                    element.style.background = oldBg;
+                    grid.style.gridTemplateColumns = oldGrid;
                     setIsDownloading(false);
                   });
                 }}
