@@ -11,10 +11,15 @@ import docx
 
 app = FastAPI(title="ATS Resume Checker API")
 
-# CRITICAL: allow ALL origins so frontend on any port can connect
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://resumescanatschecker.netlify.app",
+    ],
+    allow_origin_regex=r"https://.*\.netlify\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -59,7 +59,8 @@ const LoginPage = () => {
       await loginWithGoogle();
       navigate('/upload');
     } catch (err) {
-      setError('Failed to sign in with Google.');
+      console.error("Google Auth Error:", err);
+      setError(`Failed to sign in with Google: ${err.message}`);
     } finally {
       setLoading(false);
     }
